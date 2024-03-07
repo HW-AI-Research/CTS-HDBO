@@ -1,0 +1,10 @@
+function: lasso-hard
+
+input-dim: 1000
+max-evals: 500
+n-init: 10
+num-repetitions: 10
+
+n_trust_regions: 1
+BATCH_SIZE: 1
+verbose: true

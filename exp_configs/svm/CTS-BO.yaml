@@ -1,0 +1,16 @@
+function: svm
+
+input-dim: 388
+max-evals: 2000
+n-init: 10
+num-repetitions: 10
+
+n_trust_regions: 1
+BATCH_SIZE: 1
+verbose: true
+
+# makes spherical TR irrelevant
+model_space: false
+failure_streak: 2000
+rho_init: 2.0
+rho_min: 2.0

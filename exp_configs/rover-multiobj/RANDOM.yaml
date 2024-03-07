@@ -1,0 +1,11 @@
+num-repetitions: 10
+input-dim: 60
+function: rover
+max_evals: 2000
+n_init: 200
+max_reference_point:
+  - 0.0
+  - -0.5
+
+BATCH_SIZE: 50
+ACQ_FN: random

@@ -1,0 +1,15 @@
+num-repetitions: 10
+input-dim: 300
+function: DTLZ2
+max_evals: 2000
+n_init: 200
+max_reference_point:
+  - -20
+  - -20
+
+BATCH_SIZE: 50
+ACQ_FN: qnehvi
+MODEL: SingleTaskGP
+
+NUM_RESTARTS: 2
+RAW_SAMPLES: 64

@@ -1,0 +1,18 @@
+function: hartmann6
+
+input-dim: 500
+max-evals: 500
+n-init: 10
+num-repetitions: 10
+
+n_trust_regions: 1
+BATCH_SIZE: 1
+verbose: true
+
+BOCK: true
+
+# Makes TR irrelevant, equivalent to global optimization
+failure_streak: 2000
+TR_INIT_L: 3.0
+scale_TR_sides: False
+RAASP: False

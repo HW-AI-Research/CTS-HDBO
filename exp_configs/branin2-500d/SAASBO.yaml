@@ -1,0 +1,16 @@
+function: branin2
+
+input-dim: 500
+max-evals: 100
+n-init: 10
+num-repetitions: 10
+
+ACQ_FN: qnei
+MODEL: SAAS
+BATCH_SIZE: 1
+
+NUM_RESTARTS: 5
+RAW_SAMPLES: 5000 # 128 #1024
+MCMC_WARMUP_STEPS: 64 # 128 #16 # 16 # 128
+MCMC_NUM_SAMPLES: 64 # 128 #16
+MCMC_THINNING: 8 # 16 # 2

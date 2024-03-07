@@ -1,0 +1,16 @@
+function: svm
+
+input-dim: 388
+max-evals: 2000
+n-init: 10
+num-repetitions: 10
+
+n_trust_regions: 1
+BATCH_SIZE: 1
+verbose: true
+
+# Makes TR irrelevant, equivalent to global optimization
+failure_streak: 2000
+TR_INIT_L: 3.0
+scale_TR_sides: False
+RAASP: False

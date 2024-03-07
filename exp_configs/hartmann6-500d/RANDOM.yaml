@@ -1,0 +1,9 @@
+function: hartmann6
+
+input-dim: 500
+max-evals: 1000
+n-init: 10
+num-repetitions: 10
+
+ACQ_FN: random
+BATCH_SIZE: 1

@@ -1,0 +1,7 @@
+function: hartmann6
+
+input-dim: 500
+max-evals: 500
+n-init: 10
+num-repetitions: 10
+adjust-initial-target-dimension: true
