@@ -489,86 +489,66 @@ class TMVN_CylindricalSampler:
 
         return A_tilde, centered_u
     
-    def transform_warped_samples_multiple_centers(self, xp, A_hat, Lp, P, centered_u, counts):
-        
-        parallel = False
-        start = 0
-        z_serial = torch.empty((0, self.d, 1), **self.tkwargs)
-        I = torch.eye(self.d, **self.tkwargs)
-        for i, stop in enumerate(counts.cumsum(0)):
-            xp_i = xp[start:stop]
-            A_hat_i = A_hat[i]
-            Lp_i = Lp[i]
-            P_i = P[i]
-            centered_u_i = centered_u[i]
-            assert len(xp_i) == counts[i]
-
-            start = stop # update starting index
-
-            Lp_i = Lp_i.squeeze()
-            Lp_inv = torch.linalg.solve_triangular(Lp_i, I, upper=False)
-
-            A_hat_i = A_hat_i.squeeze()
-            P_i = P_i.squeeze()
-            PA = P_i @ A_hat_i
-
-            Qp_T = Lp_inv @ PA # Qp.T = Lp^{-1} @ PA
-            Qp = Qp_T.T
-
-            z_i = Qp.unsqueeze(0) @ xp_i
-
-            assert (A_hat_i.unsqueeze(0) @ z_i < centered_u_i.unsqueeze(-1)).all()
-            z_serial = torch.cat([z_serial, z_i], dim=0)
-
+    def transform_warped_samples_multiple_centers(self, xp, A_hat, Lp, P, centered_u, counts, parallel = False):
+        """
+        Used in MORBO whenever we need to perform CTS with multiple centers of peturbation.
+        Calling this function with parallel=True can cause memory issues on certain systems.        
+        """
         if parallel:
             A_hat = A_hat.repeat_interleave(counts, dim=0)
             Lp = Lp.repeat_interleave(counts, dim=0)
             P = P.repeat_interleave(counts, dim=0)
             I = torch.eye(self.d, **self.tkwargs).unsqueeze(0).repeat(counts.sum(),1,1)
             centered_u = centered_u.repeat_interleave(counts, dim=0)
-            # want z (normally distributed with mu = 0, cov = I, such that l < Az < u)
-            # We have the following relationships which we use to solve for z
-            # xp = Qp.T @ z
-            # Lp @ Qp.T = PA permuted A matrix
-            # convert to float to use less gpu memory
             
-            # A_hat = A_hat.to(torch.float)
-            # Lp = Lp.to(torch.float)
-            # P = P.to(torch.float)
-            # I = I.to(torch.float)
-            # xp = xp.to(torch.float)
-            # centered_u = centered_u.to(torch.float)
             torch.cuda.empty_cache()
             
             # assert torch.isclose(Lp.tril(), Lp).all()
             Lp_inv = torch.linalg.solve_triangular(Lp, I, upper=False)
-            # assert torch.isclose(Lp @ Lp_inv, I).all()
-            # print(torch.cuda.memory_summary(device=None, abbreviated=False))
-            # debug(f'{Lp_inv.shape=}')
-            # debug(f'{P.shape=}')
-            # debug(f'{A_hat.shape=}')
-            # TODO: serially compute for each unique center
             Qp_T = Lp_inv @ P @ A_hat # Qp.T = Lp^{-1} @ PA
 
             # confirm that Qp is indeed orthogonal
             # assert torch.isclose(Qp_T @ Qp_T.transpose(1,2), I).all()
             # assert torch.isclose(Lp @ Qp_T, P @ A_hat).all()
             Qp = Qp_T.transpose(1,2)
-            
-            # A_inv = Qp @ Lp_inv @ P
-            # D = torch.diagonal(Lp, dim1=-2, dim2=-1) # batch diagonal
-            # x = P.transpose(1,2) @ (D.unsqueeze(-1) * xp) # un-permute and rescale xp
-            # z = A_inv @ x
-            
+
             z = Qp @ xp
 
-            assert torch.isclose(z, z_serial).all()
+            assert (A_hat.unsqueeze(0) @ z < centered_u.unsqueeze(-1)).all()
 
         else:
+            start = 0
+            z_serial = torch.empty((0, self.d, 1), **self.tkwargs)
+            I = torch.eye(self.d, **self.tkwargs)
+            for i, stop in enumerate(counts.cumsum(0)):
+                xp_i = xp[start:stop]
+                A_hat_i = A_hat[i]
+                Lp_i = Lp[i]
+                P_i = P[i]
+                centered_u_i = centered_u[i]
+                assert len(xp_i) == counts[i]
+
+                start = stop # update starting index
+
+                Lp_i = Lp_i.squeeze()
+                Lp_inv = torch.linalg.solve_triangular(Lp_i, I, upper=False)
+
+                A_hat_i = A_hat_i.squeeze()
+                P_i = P_i.squeeze()
+                PA = P_i @ A_hat_i
+
+                Qp_T = Lp_inv @ PA # Qp.T = Lp^{-1} @ PA
+                Qp = Qp_T.T
+
+                z_i = Qp.unsqueeze(0) @ xp_i
+
+                assert (A_hat_i.unsqueeze(0) @ z_i < centered_u_i.unsqueeze(-1)).all()
+                z_serial = torch.cat([z_serial, z_i], dim=0)
+            
             z = z_serial
-    
-        assert (A_hat.repeat_interleave(counts, dim=0) @ z < centered_u.repeat_interleave(counts, dim=0).unsqueeze(-1)).all()
-        # z = z.to(**self.tkwargs)
+
+            assert (A_hat.repeat_interleave(counts, dim=0) @ z < centered_u.repeat_interleave(counts, dim=0).unsqueeze(-1)).all()
+        
         z = z * self.sigma
         
         return z
