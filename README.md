@@ -25,7 +25,7 @@
 <h2>Structure</h2> 
 
 <div style="width: 100%; text-align: center; margin:auto;">
-      <img style="width: 75%" src="data/CTSBO.png">
+      <img style="width: 75%" src="data/CTSBO.PNG">
 </div>
     
 <h2>Open-Source HDBO Benchmark Results Results</h2> 
