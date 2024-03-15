@@ -3,23 +3,20 @@
     
 
     
-<a>AISTATS 2024 -- A novel sampling approach that boosts high-dimensional BO</a>
+<a style="font-size: 20px;">AISTATS 2024 -- A novel sampling approach that boosts high-dimensional BO</a>
 
-  <div>
-      <a>Bahador Rashidi</a><sup>*</sup><sup>1</sup>,
+  <div style="font-size: 16px;">
+      <a >Bahador Rashidi</a><sup>*</sup><sup>1</sup>,
       <a>Kerrick Johnstonbaugh</a><sup>*</sup><sup>1</sup>,
       <a>Chao Gao</a><sup>1</sup>,
   </div>
     
 
 
-  <div>
+  <div style="font-size: 10px;">
   <sup>*</sup>Equal Contribution, <sup>1</sup>Huawei Canada - Edmonton Research Center,
        </div>   
-
-<div>
-   <a href="https://github.com/HW-AI-Research/CTS-HDBO"><strong>Paper Github Repo</strong></a>
-   </div>   
+ 
     
 
 <h2>Structure</h2> 
