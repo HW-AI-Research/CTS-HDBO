@@ -1,36 +1,30 @@
 <div align="center">
-  <h1>Cylindrical Thompson Sampling for High-Dimensional Bayesian Optimization
-    
-
-    
-<a style="font-size: 20px;">AISTATS 2024 -- A novel sampling approach that boosts high-dimensional BO</a>
-
+  <h1>Cylindrical Thompson Sampling for High-Dimensional Bayesian Optimization</h1>
+  <a style="font-size: 20px;">AISTATS 2024 -- A novel sampling approach that boosts high-dimensional BO</a>
+  
   <div style="font-size: 16px;">
-      <a >Bahador Rashidi</a><sup>*</sup><sup>1</sup>,
-      <a>Kerrick Johnstonbaugh</a><sup>*</sup><sup>1</sup>,
-      <a>Chao Gao</a><sup>1</sup>,
+    <a>Bahador Rashidi</a><sup>*</sup><sup>1</sup>,
+    <a>Kerrick Johnstonbaugh</a><sup>*</sup><sup>1</sup>,
+    <a>Chao Gao</a><sup>1</sup>
   </div>
-    
-
-
+  
   <div style="font-size: 10px;">
-  <sup>*</sup>Equal Contribution, <sup>1</sup>Huawei Canada - Edmonton Research Center,
-       </div>   
- 
-    
-
-<h2>Structure</h2> 
-
-<div style="width: 100%; text-align: center; margin:auto;">
-      <img style="width: 75%" src="data/CTSBO.PNG">
+    <sup>*</sup>Equal Contribution, <sup>1</sup>Huawei Canada - Edmonton Research Center
+  </div>
+  
+  <h2>Structure</h2>
+  
+  <div style="width: 100%; text-align: center; margin:auto;">
+    <img style="width: 75%" src="data/CTSBO.PNG">
+  </div>
+  
+  <h2>Open-Source HDBO Benchmark Results</h2>
+  
+  <div style="width: 75%; text-align: center; margin:auto;">
+    <img style="width: 75%" src="data/Results_CTSBO.PNG">
+  </div>
 </div>
-    
-<h2>Open-Source HDBO Benchmark Results Results</h2> 
-<div style="width: 75%; text-align: center; margin:auto;">
-      <img style="width: 75%" src="data/Results_CTSBO.PNG">
-</div> 
- 
-</div> 
+
 
 
 ## Code Instructions
