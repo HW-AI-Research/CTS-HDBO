@@ -9,7 +9,7 @@
   </div>
   
   <div style="font-size: 10px;">
-    <sup>*</sup>Equal Contribution, <sup>1</sup>Huawei Canada - Edmonton Research Center
+    <sup>*</sup>Equal Contribution, <sup>1</sup>Huawei Canada Technologies 
   </div>
   
   <h2>Structure</h2>
